@@ -1,88 +1,101 @@
 #include <iostream>
-#include<queue>
+#include <queue>
 using namespace std;
 
-class Node {
-        public:
-        int data;
-        Node* left;
-        Node* right;
+class Node
+{
+public:
+	int data;
+	Node *left;
+	Node *right;
 
-        Node(int data) {
-                this->data = data;
-                this->left = NULL;
-                this->right = NULL;
-        }
+	Node(int data)
+	{
+		this->data = data;
+		this->left = NULL;
+		this->right = NULL;
+	}
 };
 
+Node *insertIntoBST(Node *root, int data)
+{
 
-Node* insertIntoBST(Node* root, int data) {
+	if (root == NULL)
+	{
+		// this is the first node we have to create
+		root = new Node(data);
+		return root;
+	}
 
-        if(root == NULL) {
-                //this is the first node we have to create
-                root = new Node(data);
-                return root;
-        }
+	// no the first node
 
-        //no the first node 
-
-        if(root-> data > data) {
-                //insert in left
-                root->left = insertIntoBST(root->left, data);
-        }
-        else {
-                //insert into right
-                root->right = insertIntoBST(root->right, data);
-        }
-        return root;
+	if (root->data > data)
+	{
+		// insert in left
+		root->left = insertIntoBST(root->left, data);
+	}
+	else
+	{
+		// insert into right
+		root->right = insertIntoBST(root->right, data);
+	}
+	return root;
 }
 
-void takeInput(Node* &root) {
-        int data;
-        cin >> data;
+void takeInput(Node *&root)
+{
+	int data;
+	cin >> data;
 
-        while(data != -1) {
-                root = insertIntoBST(root, data);
-                cin >> data;
-        }
+	while (data != -1)
+	{
+		root = insertIntoBST(root, data);
+		cin >> data;
+	}
 }
-void levelOrderTraversal(Node* root ) {
-	queue<Node*> q;
-	//initially
+void levelOrderTraversal(Node *root)
+{
+	queue<Node *> q;
+	// initially
 	q.push(root);
 	q.push(NULL);
 
-	while(!q.empty()) {
-		//A
-		Node* temp = q.front();
-		//B
+	while (!q.empty())
+	{
+		// A
+		Node *temp = q.front();
+		// B
 		q.pop();
-		
-		if(temp == NULL) {
+
+		if (temp == NULL)
+		{
 			cout << endl;
-			if(!q.empty()) {
+			if (!q.empty())
+			{
 				q.push(NULL);
-			}	
-		}
-		else {
-			//C
-			cout << temp->data << " ";
-			//D
-			if(temp -> left) {
-				q.push(temp ->left);
 			}
-			if(temp ->right) {
+		}
+		else
+		{
+			// C
+			cout << temp->data << " ";
+			// D
+			if (temp->left)
+			{
+				q.push(temp->left);
+			}
+			if (temp->right)
+			{
 				q.push(temp->right);
 			}
 		}
-		
-		
 	}
 }
 
-void preOrderTraversal(Node* root) {
-	//NLR
-	if(root == NULL)
+void preOrderTraversal(Node *root)
+{
+	// NLR
+	if (root == NULL)
 		return;
 
 	cout << root->data << " ";
@@ -90,9 +103,10 @@ void preOrderTraversal(Node* root) {
 	preOrderTraversal(root->right);
 }
 
-void inOrderTraversal(Node* root) {
-	//LNR
-	if(root == NULL)
+void inOrderTraversal(Node *root)
+{
+	// LNR
+	if (root == NULL)
 		return;
 
 	inOrderTraversal(root->left);
@@ -100,9 +114,10 @@ void inOrderTraversal(Node* root) {
 	inOrderTraversal(root->right);
 }
 
-void postOrderTraversal(Node* root) {
-	//LRN
-	if(root == NULL)
+void postOrderTraversal(Node *root)
+{
+	// LRN
+	if (root == NULL)
 		return;
 
 	postOrderTraversal(root->left);
@@ -110,136 +125,152 @@ void postOrderTraversal(Node* root) {
 	cout << root->data << " ";
 }
 
-//assuming there are only unique values in tree
-Node* findNodeInBST(Node* root, int target) {
-	///base case
-	if(root == NULL) {
+// assuming there are only unique values in tree
+Node *findNodeInBST(Node *root, int target)
+{
+	/// base case
+	if (root == NULL)
+	{
 		return NULL;
 	}
 
-	if(root->data == target) 
+	if (root->data == target)
 		return root;
-//assuming there are only unique values in tree
-	// Node* leftAns = false;
-	// Node* rightAns = false;
-	
-	if(target > root->data) {
-		//right subtree me search karo
-		return findNodeInBST(root->right,  target);
+	// assuming there are only unique values in tree
+	//  Node* leftAns = false;
+	//  Node* rightAns = false;
+
+	if (target > root->data)
+	{
+		// right subtree me search karo
+		return findNodeInBST(root->right, target);
 	}
-	else {
-		return findNodeInBST(root->left,  target);
+	else
+	{
+		return findNodeInBST(root->left, target);
 	}
 }
 
-int minVal(Node* root) {
-	Node* temp = root;
-	if(temp == NULL) {
+int minVal(Node *root)
+{
+	Node *temp = root;
+	if (temp == NULL)
+	{
 		return -1;
 	}
 
-	while(temp -> left != NULL) {
-		temp = temp ->left;
+	while (temp->left != NULL)
+	{
+		temp = temp->left;
 	}
-	return temp -> data;
+	return temp->data;
 }
 
-int maxVal(Node* root) {
-	Node* temp = root;
-	if(temp == NULL) {
+int maxVal(Node *root)
+{
+	Node *temp = root;
+	if (temp == NULL)
+	{
 		return -1;
 	}
 
-	while(temp -> right != NULL) {
-		temp = temp ->right;
+	while (temp->right != NULL)
+	{
+		temp = temp->right;
 	}
-	return temp -> data;
+	return temp->data;
 }
 
-Node* deleteNodeInBST(Node* root, int target) {
-	
-	//base cae
-	if(root == NULL ) {
+Node *deleteNodeInBST(Node *root, int target)
+{
+
+	// base cae
+	if (root == NULL)
+	{
 		return NULL;
 	}
-//cout << "Request recieved for " >> root->data << " with target" << target << endl;
-	if(root->data == target) {
-		//isi ko delete krna h 
-		//4 cases 
-		if(root->left == NULL && root->right == NULL) {
-			//leaf node
-			//delete root;
+	// cout << "Request recieved for " >> root->data << " with target" << target << endl;
+	if (root->data == target)
+	{
+		// isi ko delete krna h
+		// 4 cases
+		if (root->left == NULL && root->right == NULL)
+		{
+			// leaf node
+			// delete root;
 			return NULL;
 		}
-		else if(root->left == NULL && root->right != NULL) {
-			Node* child = root->right;
-			//delete root;
+		else if (root->left == NULL && root->right != NULL)
+		{
+			Node *child = root->right;
+			// delete root;
 			return child;
 		}
-		else if(root->left != NULL && root->right == NULL) {
-			Node* child  = root->left;
-			//delete root;
+		else if (root->left != NULL && root->right == NULL)
+		{
+			Node *child = root->left;
+			// delete root;
 			return child;
 		}
-		else {
-			//both child
-			//find inorder predecessor inb left subtree
+		else
+		{
+			// both child
+			// find inorder predecessor inb left subtree
 			int inorderPre = maxVal(root->left);
-			//replace root->data value with inorder predecessor
+			// replace root->data value with inorder predecessor
 			root->data = inorderPre;
-			//delete inorder predecessor from left subtree
-			root->left = deleteNodeInBST(root->left,inorderPre);
+			// delete inorder predecessor from left subtree
+			root->left = deleteNodeInBST(root->left, inorderPre);
 			return root;
-			
 		}
-		
 	}
-	else if(target > root -> data) {
-		//right jana chahiye
-		root->right =  deleteNodeInBST(root->right, target);
+	else if (target > root->data)
+	{
+		// right jana chahiye
+		root->right = deleteNodeInBST(root->right, target);
 	}
-	else if(target < root->data) {
-		//left jana chahioye
+	else if (target < root->data)
+	{
+		// left jana chahioye
 		root->left = deleteNodeInBST(root->left, target);
 	}
 	return root;
 }
 
-
-Node* bstUsingInorder(int inorder[], int s, int e) {
-	//base case
-	if(s > e) {
+Node *bstUsingInorder(int inorder[], int s, int e)
+{
+	// base case
+	if (s > e)
+	{
 		return NULL;
 	}
 
-	int mid = (s+e)/2;
+	int mid = (s + e) / 2;
 	int element = inorder[mid];
-	Node* root = new Node(element);
+	Node *root = new Node(element);
 
-	root->left = bstUsingInorder(inorder, s, mid-1);
-	root->right = bstUsingInorder(inorder, mid+1, e);
+	root->left = bstUsingInorder(inorder, s, mid - 1);
+	root->right = bstUsingInorder(inorder, mid + 1, e);
 
 	return root;
-	
 }
 
+int main()
+{
 
-int main() {
-
-	int inorder[] = {1,2,3,4,5,6,7,8,9};
+	int inorder[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 	int s = 0;
 	int e = 8;
 
-	Node* root = bstUsingInorder(inorder, s,e);
+	Node *root = bstUsingInorder(inorder, s, e);
 	levelOrderTraversal(root);
 
-	
-	  // Node* root = NULL;
-	  // cout << "Enter the data for Node " << endl;
-	  // takeInput(root);
-	  // cout << "Printing the tree" << endl;
-	  // levelOrderTraversal(root);
-	  // cout << endl;
+	// Node* root = NULL;
+	// cout << "Enter the data for Node " << endl;
+	// takeInput(root);
+	// cout << "Printing the tree" << endl;
+	// levelOrderTraversal(root);
+	// cout << endl;
 	//   cout << "Printing Inorder: " << endl;
 	//   inOrderTraversal(root);
 	//   cout << endl;
@@ -256,6 +287,8 @@ int main() {
 
 	// root = deleteNodeInBST(root, 100);
 	// levelOrderTraversal(root);
-	
-  return 0;
+
+	return 0;
 }
+
+// !question -- convert a bst into a balanced bst
