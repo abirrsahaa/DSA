@@ -46,6 +46,7 @@ Node* buildTree() {
 	// K = 1
 	// P= 4
 
+// having doubt in this question as in gfg it is not a bool function it is a int functtion
 		 
 bool kthAncestor(Node* root, int &k , int p) {
 	//base cae

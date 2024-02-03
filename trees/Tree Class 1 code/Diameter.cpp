@@ -45,3 +45,10 @@ public:
         return ans;
     }
 };
+
+
+
+// in homework there is the question to find the diameter of the tree in the fastest way !
+
+// so what we are doing in the above code is that we are calculating the diameter of the node 
+// by adding the height of the left subtree and the right subtree and then adding 1 to it

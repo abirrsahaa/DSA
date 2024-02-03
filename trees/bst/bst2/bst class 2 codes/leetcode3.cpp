@@ -9,6 +9,8 @@
  *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
  * };
  */
+
+// this code is really great!!
 class Solution {
 public:
     int kthSmallest(TreeNode* root, int &k) {
